@@ -1,62 +1,56 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
-import Root, {
-  loader as rootLoader,
-  action as rootAction,
-} from "./routes/root";
-import ErrorPage from "./error-page";
-import Contact, { loader as contactLoader, action as contactAction } from "./routes/contact";
-import EditContact, { action as editAction } from "./routes/edit";
-import { action as destroyAction } from "./routes/destroy";
-import Index from "./routes/index";
+import ErrorPage from './error-page';
+import Root, {loader as rootLoader, action as rootAction} from './routes/root';
+import Contact, {loader as contactLoader, action as contactAction} from './routes/contact';
+import EditContact, {action as editAction} from './routes/edit';
+import {action as destroyAction} from './routes/destroy';
+import Index from './routes/index';
 
-import "./index.css";
+import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
+    path: '/',
+    element: <Root/>,
+    errorElement: <ErrorPage/>,
     loader: rootLoader,
     action: rootAction,
     children: [
       {
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage/>,
         children: [
           {
             index: true,
-            element: <Index />,
+            element: <Index/>
           },
           {
-            path: "contacts/:contactId",
-            element: <Contact />,
+            path: 'contacts/:contactId',
+            element: <Contact/>,
             loader: contactLoader,
-            action: contactAction,
+            action: contactAction
           },
           {
-            path: "contacts/:contactId/edit",
-            element: <EditContact />,
+            path: 'contacts/:contactId/edit',
+            element: <EditContact/>,
             loader: contactLoader,
-            action: editAction,
+            action: editAction
           },
           {
-            path: "contacts/:contactId/destroy",
+            path: 'contacts/:contactId/destroy',
             action: destroyAction,
-            errorElement: <div>Oops! There was an error.</div>,
-          },
-        ],
+            errorElement: <div>Oops! There was an error.</div>
+          }
+        ]
       }
-
     ]
-
-
-  },
+  }
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
